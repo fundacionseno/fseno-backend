@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const provincia_controllers_1 = require("../controllers/provincia.controllers");
+const verificarToken_1 = require("../libs/verificarToken");
+const enrutadorProvincia = express_1.Router();
+let provinciaController = new provincia_controllers_1.ProvinciaController;
+enrutadorProvincia.route('/provincia').get(verificarToken_1.validarToken, provinciaController.listarProvincia);
+enrutadorProvincia.route('/provincia').post(provinciaController.crearProvincia);
+enrutadorProvincia.route('/provincia/:id').delete(provinciaController.eliminarProvincia);
+enrutadorProvincia.route('/provincia/:id').put(provinciaController.actualizarProvincia);
+enrutadorProvincia.route('/provincia/:id').get(provinciaController.obtenerProvincia);
+exports.default = enrutadorProvincia;
