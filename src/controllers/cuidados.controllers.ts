@@ -5,9 +5,9 @@ import fs from "fs-extra";
 import cloudinary from "cloudinary";
 
 cloudinary.v2.config({
-    cloud_name:'dj7l5ojza',
-    api_key:'566266184157444',
-    api_secret:'Y3au0dyhsbHHgKNPK2pg67Vb_h8'
+    cloud_name:'fundacion-seno',
+    api_key:'948933714899142',
+    api_secret:'bJ_0nM3-qYX_t7duWTeIDc1QvM8'
 
 });
 export class CuidadosController
