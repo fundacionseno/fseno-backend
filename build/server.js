@@ -65,7 +65,7 @@ class Server {
     }
     listen() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.app.listen(3000);
+            yield this.app.listen(this.app.get('port'));
             console.log('Corriendo servidor en el puerto', this.app.get('port'));
         });
     }

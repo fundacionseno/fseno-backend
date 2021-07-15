@@ -77,7 +77,8 @@ export class Server{
 
     async listen()
     {
-        await this.app.listen(3000);
+        await this.app.listen(this.app.get('port'));
         console.log('Corriendo servidor en el puerto', this.app.get('port'));
     }
 }
+
