@@ -38,7 +38,8 @@ class Server {
         this.routes();
     }
     configuracion() {
-        this.app.set('port', process.env.port || 3000);
+        //se establece el puerto 3000
+        this.app.set('port', process.env.PORT || 3000);
     }
     routes() {
         this.app.use(acompaniamiento_routes_1.default);
