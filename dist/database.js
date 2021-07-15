@@ -14,10 +14,10 @@ const promise_mysql_1 = require("promise-mysql");
 function conexion() {
     return __awaiter(this, void 0, void 0, function* () {
         const connect = yield promise_mysql_1.createPool({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'fundacion_seno'
+            host: 'us-cdbr-east-04.cleardb.com',
+            user: 'b038b64473ea8c',
+            password: '16a24ce2',
+            database: 'heroku_d6415f3aee583cb'
         });
         return connect;
     });
