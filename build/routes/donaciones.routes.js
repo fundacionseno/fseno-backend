@@ -6,6 +6,7 @@ const verificarToken_1 = require("../libs/verificarToken");
 const enrutadorDonaciones = express_1.Router();
 let donacionesController = new donaciones_controllers_1.DonacionesController();
 enrutadorDonaciones.route('/donaciones').get(verificarToken_1.validarToken, donacionesController.listarDonaciones);
+enrutadorDonaciones.route('/donaciones-public').get(donacionesController.listarDonaciones);
 enrutadorDonaciones.route('/donaciones').post(donacionesController.crearDonaciones);
 enrutadorDonaciones.route('/donaciones/:id').delete(donacionesController.eliminarDonaciones);
 enrutadorDonaciones.route('/donaciones/:id').put(donacionesController.actualizarDonaciones);

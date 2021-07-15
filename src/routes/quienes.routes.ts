@@ -7,6 +7,8 @@ let quienesController = new QuienesController();
 
 enrutadorQuienes_somos.route('/quienes').get(validarToken,quienesController.listarQuienes);
 
+enrutadorQuienes_somos.route('/quienes-public').get(quienesController.listarQuienes);
+
 enrutadorQuienes_somos.route('/quienes').post(quienesController.crearQuienes);
 
 enrutadorQuienes_somos.route('/quienes/:id').delete(quienesController.eliminarQuienes);

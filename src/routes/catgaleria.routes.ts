@@ -8,6 +8,8 @@ let catgaleriaController = new CatgaleriaController();
 
 enrutadorCatgaleria.route('/categoria_galeria').get(validarToken,catgaleriaController.listarCatgaleria);
 
+enrutadorCatgaleria.route('/categoria_galeria-public').get(catgaleriaController.listarCatgaleria);
+
 enrutadorCatgaleria.route('/categoria_galeria').post(catgaleriaController.crearCatgaleria);
 
 enrutadorCatgaleria.route('/categoria_galeria/:id').delete(catgaleriaController.eliminarCatgaleria);

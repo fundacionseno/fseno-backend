@@ -9,6 +9,8 @@ let cateventosController = new CateventosController();
 
 enrutadorCateven.route('/categoria_eventos').get(validarToken,cateventosController.listarCateventos);
 
+enrutadorCateven.route('/categoria_eventos-public').get(cateventosController.listarCateventos);
+
 enrutadorCateven.route('/categoria_eventos').post(cateventosController.crearCateventos);
 
 enrutadorCateven.route('/categoria_eventos/:id').delete(cateventosController.eliminarCateventos);

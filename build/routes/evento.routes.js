@@ -11,6 +11,7 @@ const enrutadorEvento = express_1.Router();
 let eventoController = new evento_controllers_1.EventoController();
 enrutadorEvento.route('/eventos').post(multer_1.default.array('img_evento'), eventoController.guardarEvento);
 enrutadorEvento.route('/eventos').get(verificarToken_1.validarToken, eventoController.listarEvento);
+enrutadorEvento.route('/eventos-public').get(eventoController.listarEvento);
 enrutadorEvento.route('/eventos-imagenes/:id_evento').get(eventoController.listarImagenesEvento);
 enrutadorEvento.route('/agregar-imagenes-evento/:id_evento').put(multer_1.default.array('img_evento'), eventoController.agregarImagenesEvento);
 enrutadorEvento.route('/detalles-imagen-evento/:id_img_evento/:public_id').delete(eventoController.eliminarImagenesEvento);

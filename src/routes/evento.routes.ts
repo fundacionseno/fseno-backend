@@ -10,6 +10,8 @@ enrutadorEvento.route('/eventos').post(multer.array('img_evento'),eventoControll
 
 enrutadorEvento.route('/eventos').get(validarToken,eventoController.listarEvento);
 
+enrutadorEvento.route('/eventos-public').get(eventoController.listarEvento);
+
 enrutadorEvento.route('/eventos-imagenes/:id_evento').get(eventoController.listarImagenesEvento);
 
 enrutadorEvento.route('/agregar-imagenes-evento/:id_evento').put(multer.array('img_evento'),eventoController.agregarImagenesEvento);

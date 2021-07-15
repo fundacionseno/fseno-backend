@@ -13,6 +13,8 @@ enrutadorCcuidados.route('/cuidados').post(multer.array('img_cuidados'),cuidados
 
 enrutadorCcuidados.route('/cuidados').get(validarToken,cuidadosController.listarCuidados);
 
+enrutadorCcuidados.route('/cuidados-public').get(cuidadosController.listarCuidados);
+
 enrutadorCcuidados.route('/cuidados-imagenes/:id_cuidados').get(cuidadosController.listarImagenesCuidados);
 
 enrutadorCcuidados.route('/agregar-imagenes-cuidados/:id_cuidados').put(multer.array('img_cuidados'),cuidadosController.agregarImagenesCuidados);

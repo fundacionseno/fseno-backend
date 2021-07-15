@@ -8,6 +8,8 @@ let catdonacionesController = new CatdonacionesController();
 
 enrutadorCatdon.route('/categoria_donaciones').get(validarToken,catdonacionesController.listarCatdonaciones);
 
+enrutadorCatdon.route('/categoria_donaciones-public').get(catdonacionesController.listarCatdonaciones);
+
 enrutadorCatdon.route('/categoria_donaciones').post(catdonacionesController.crearCatdonaciones);
 
 enrutadorCatdon.route('/categoria_donaciones/:id').delete(catdonacionesController.eliminarCatdonaciones);

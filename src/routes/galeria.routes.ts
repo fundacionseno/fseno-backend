@@ -10,6 +10,8 @@ enrutadorGaleria.route('/galeria').post(multer.array('img_galeria'),galeriaContr
 
 enrutadorGaleria.route('/galeria').get(validarToken,galeriaController.listarGaleria);
 
+enrutadorGaleria.route('/galeria-public').get(galeriaController.listarGaleria);
+
 enrutadorGaleria.route('/galeria-imagenes/:id_galeria').get(galeriaController.listarImagenesGaleria);
 
 enrutadorGaleria.route('/agregar-imagenes-galeria/:id_galeria').put(multer.array('img_galeria'),galeriaController.agregarImagenesGaleria);

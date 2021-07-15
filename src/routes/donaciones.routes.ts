@@ -7,6 +7,8 @@ let donacionesController = new DonacionesController();
 
 enrutadorDonaciones.route('/donaciones').get(validarToken,donacionesController.listarDonaciones);
 
+enrutadorDonaciones.route('/donaciones-public').get(donacionesController.listarDonaciones);
+
 enrutadorDonaciones.route('/donaciones').post(donacionesController.crearDonaciones);
 
 enrutadorDonaciones.route('/donaciones/:id').delete(donacionesController.eliminarDonaciones);

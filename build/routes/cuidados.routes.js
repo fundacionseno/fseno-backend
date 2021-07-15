@@ -11,6 +11,7 @@ const enrutadorCcuidados = express_1.Router();
 let cuidadosController = new cuidados_controllers_1.CuidadosController();
 enrutadorCcuidados.route('/cuidados').post(multer_1.default.array('img_cuidados'), cuidadosController.guardarCuidados);
 enrutadorCcuidados.route('/cuidados').get(verificarToken_1.validarToken, cuidadosController.listarCuidados);
+enrutadorCcuidados.route('/cuidados-public').get(cuidadosController.listarCuidados);
 enrutadorCcuidados.route('/cuidados-imagenes/:id_cuidados').get(cuidadosController.listarImagenesCuidados);
 enrutadorCcuidados.route('/agregar-imagenes-cuidados/:id_cuidados').put(multer_1.default.array('img_cuidados'), cuidadosController.agregarImagenesCuidados);
 enrutadorCcuidados.route('/detalles-imagen-cuidados/:id_img_cuidados/:public_id').delete(cuidadosController.eliminarImagenesCuidados);
