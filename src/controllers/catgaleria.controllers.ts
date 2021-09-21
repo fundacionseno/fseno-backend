@@ -6,23 +6,37 @@ export class CatgaleriaController
 {
     public async listarCatgaleria(req:Request, res:Response)
     {
-        const conec = await conexion();
 
-        let catgaleria = await conec.query('select * from categoria_galeria');
+        try {
+            const conec = await conexion();
 
-        return res.json(catgaleria);
+            let catgaleria = await conec.query('select * from categoria_galeria');
+
+            res.json(catgaleria);
+            await conec.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
 
     }
 
     public async crearCatgaleria (req:Request, res:Response)
     {
-        let catgaleria:ICatgaleria = req.body;
+        try {
+            let catgaleria:ICatgaleria = req.body;
 
-        const conec = await conexion();
+            const conec = await conexion();
 
-        await conec.query("insert into categoria_galeria set ?",[catgaleria]);
-    
-        return res.json('El elemento fue agregado');
+            await conec.query("insert into categoria_galeria set ?",[catgaleria]);
+        
+            res.json('El elemento fue agregado');
+
+            await conec.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 
     public async eliminarCatgaleria(req:Request, res:Response)
@@ -32,8 +46,8 @@ export class CatgaleriaController
         let id_categoria =req.params.id;
         try {
             await conec.query('delete from categoria_galeria where id_categoria = ?',[id_categoria]);
-            return res.json("Categoria eliminada");
-
+            res.json("Categoria eliminada");
+            await conec.end()
         } catch (error) {
            return res.json("No se puede eliminar una categoria que este siendo utilizada por galeria")
         }
@@ -41,27 +55,40 @@ export class CatgaleriaController
 
     public async actualizarCatgaleria(req:Request, res:Response)
     {
-        const conec = await conexion();
+        try {
+            const conec = await conexion();
 
-        let id_categoria = req.params.id;
+            let id_categoria = req.params.id;
 
-        let nueva_data = req.body;
+            let nueva_data = req.body;
 
-        await conec.query("update categoria_galeria set ? where id_categoria = ?", [nueva_data, id_categoria]);
+            await conec.query("update categoria_galeria set ? where id_categoria = ?", [nueva_data, id_categoria]);
 
-        return res.json('El elemento ha sido actualizado');
+            res.json('El elemento ha sido actualizado');
+            await conec.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
         
     }
 
     public async obtenerCatgaleria(req:Request, res:Response)
     {
-        const conec = await conexion();
+        try {
+            const conec = await conexion();
 
-        let id_categoria = req.params.id;
+            let id_categoria = req.params.id;
 
-        let catga = await conec.query("select * from categoria_galeria where id_categoria =?",[id_categoria]);
+            let catga = await conec.query("select * from categoria_galeria where id_categoria =?",[id_categoria]);
 
-        return res.json(catga[0]);
+            res.json(catga[0]);
+
+            await conec.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 
 }

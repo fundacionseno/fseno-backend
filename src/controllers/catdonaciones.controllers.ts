@@ -5,23 +5,37 @@ import { ICatdonaciones } from "../models/catdonaciones";
 export class CatdonacionesController
 {
     public async listarCatdonaciones(req:Request,res:Response){
+        try {
+            const conex = await conexion();
+
+            let catdonaciones = await conex.query('select * from categoria_donaciones');
+
+            res.json(catdonaciones);
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
         
-        const conex = await conexion();
-
-        let catdonaciones = await conex.query('select * from categoria_donaciones');
-
-        return res.json(catdonaciones);
     }
 
     public async crearCatdonaciones(req:Request,res:Response){
 
-        let catdonaciones:ICatdonaciones = req.body;
+        try {
+            let catdonaciones:ICatdonaciones = req.body;
 
-        const conex = await conexion();
+            const conex = await conexion();
 
-        await conex.query('insert into categoria_donaciones set ?',[catdonaciones]);
+            await conex.query('insert into categoria_donaciones set ?',[catdonaciones]);
 
-        return res.json('Categoria Agregada');
+            res.json('Categoria Agregada');
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+
+        
 
     }
 
@@ -31,32 +45,48 @@ export class CatdonacionesController
         let id_categoria_donaciones =req.params.id;
         try {
             await conex.query('delete from categoria_donaciones where id_categoria_donaciones = ?',[id_categoria_donaciones]);
-            return res.json("Categoria eliminada");
-
+            res.json("Categoria eliminada");
+            await conex.end()
         } catch (error) {
            return res.json("No se puede eliminar una categoria que este siendo utilizada ")
         }
     }
 
     public async actualizarCatdonaciones(req:Request,res:Response){
-        const conex = await conexion();
 
-        let id_categoria_donaciones = req.params.id;
+        try {
+            const conex = await conexion();
 
-        let nueva_catdon = req.body;
+            let id_categoria_donaciones = req.params.id;
 
-        await conex.query('update categoria_donaciones set ? where id_categoria_donaciones = ?',[ nueva_catdon,id_categoria_donaciones]);
+            let nueva_catdon = req.body;
 
-        return res.json('Categoria Actualizada')
+            await conex.query('update categoria_donaciones set ? where id_categoria_donaciones = ?',[ nueva_catdon,id_categoria_donaciones]);
+
+            res.json('Categoria Actualizada')
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 
     public async obtenerCatdonaciones(req:Request, res:Response){
-        const conex = await conexion();
 
-        let id_categoria_donaciones = req.params.id;
+        try {
+            const conex = await conexion();
 
-        let unaCatdon = await conex.query("select * from categoria_donaciones where id_categoria_donaciones =?",[id_categoria_donaciones]);
+            let id_categoria_donaciones = req.params.id;
 
-        return res.json(unaCatdon[0]);
+            let unaCatdon = await conex.query("select * from categoria_donaciones where id_categoria_donaciones =?",[id_categoria_donaciones]);
+
+            res.json(unaCatdon[0]);
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 }

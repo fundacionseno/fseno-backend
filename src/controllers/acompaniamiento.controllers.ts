@@ -1,27 +1,44 @@
 import { conexion } from "../database";
-import { Request, Response } from "express";
+import { json, Request, Response } from "express";
 import { IAcompaniamiento } from "../models/acompaniamiento";
 
 export class AcompaniamientoController
 {
     public async listarAcomp(req:Request,res:Response){
+
+        try {
+            const conex = await conexion();
+
+            let acomp = await conex.query('select * from tipo_acompaniamiento');
+
+            res.json(acomp);
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
         
-        const conex = await conexion();
-
-        let acomp = await conex.query('select * from tipo_acompaniamiento');
-
-        return res.json(acomp);
+        
     }
 
     public async crearAcomp(req:Request,res:Response){
 
-        let acomp:IAcompaniamiento = req.body;
+        try {
+            let acomp:IAcompaniamiento = req.body;
 
-        const conex = await conexion();
+            const conex = await conexion();
 
-        await conex.query('insert into tipo_acompaniamiento set ?',[acomp]);
+            await conex.query('insert into tipo_acompaniamiento set ?',[acomp]);
 
-        return res.json('Elemento agregado con exito');
+            res.json('Elemento agregado con exito');
+
+            await conex.end()
+
+        } catch (error) {
+            return res.json(error)
+        }
+
+        
 
     }
 
@@ -32,7 +49,9 @@ export class AcompaniamientoController
 
         try {
             await conex.query('delete from tipo_acompaniamiento where id_acomp = ?',[id_acomp]);
-            return res.json("Tipo de acompañamiento eliminado");
+            res.json("Tipo de acompañamiento eliminado");
+
+            await conex.end()
 
         } catch (error) {
            return res.json("No se puede eliminar un tipo de acompañamiento que esta siendo utilizado")
@@ -40,23 +59,39 @@ export class AcompaniamientoController
     }
 
     public async actualizarAcomp(req:Request,res:Response){
-        const conex = await conexion();
 
-        let id_acomp = req.params.id;
+        try {
+            const conex = await conexion();
 
-        let nuevo_ac = req.body;
-        await conex.query('update tipo_acompaniamiento set ? where id_acomp = ?',[nuevo_ac, id_acomp]);
+            let id_acomp = req.params.id;
 
-        return res.json('Elemento actualizado con exito')
+            let nuevo_ac = req.body;
+            await conex.query('update tipo_acompaniamiento set ? where id_acomp = ?',[nuevo_ac, id_acomp]);
+
+            res.json('Elemento actualizado con exito')
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 
     public async obtenerAcomp(req:Request, res:Response){
-        const conex = await conexion();
 
-        let id_acomp = req.params.id;
+        try {
+            const conex = await conexion();
 
-        let nuevo_ac = await conex.query("select * from tipo_acompaniamiento where id_acomp =?",[id_acomp]);
+            let id_acomp = req.params.id;
 
-        return res.json(nuevo_ac[0]);
+            let nuevo_ac = await conex.query("select * from tipo_acompaniamiento where id_acomp =?",[id_acomp]);
+
+            res.json(nuevo_ac[0]);
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 }

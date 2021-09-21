@@ -6,7 +6,7 @@ const enrutadorAcomp = Router();
 
 let acompController = new AcompaniamientoController();
 
-enrutadorAcomp.route('/acompaniamiento').get(validarToken,acompController.listarAcomp);
+enrutadorAcomp.route('/acompaniamiento').get(acompController.listarAcomp);
 
 enrutadorAcomp.route('/acompaniamiento-public').get(acompController.listarAcomp);
 

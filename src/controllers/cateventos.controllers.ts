@@ -5,23 +5,37 @@ import { ICateventos } from "../models/cateventos";
 export class CateventosController
 {
     public async listarCateventos(req:Request,res:Response){
+
+        try {
+            const conex = await conexion();
+
+            let cateventos = await conex.query('select * from categoria_eventos');
+
+            res.json(cateventos);
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
         
-        const conex = await conexion();
-
-        let cateventos = await conex.query('select * from categoria_eventos');
-
-        return res.json(cateventos);
+        
     }
 
     public async crearCateventos(req:Request,res:Response){
 
-        let cateventos:ICateventos = req.body;
+        try {
+            let cateventos:ICateventos = req.body;
 
-        const conex = await conexion();
+            const conex = await conexion();
 
-        await conex.query('insert into categoria_eventos set ?',[cateventos]);
+            await conex.query('insert into categoria_eventos set ?',[cateventos]);
 
-        return res.json('Categoria agregada');
+            res.json('Categoria agregada');
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+
+        
 
     }
 
@@ -32,32 +46,48 @@ export class CateventosController
 
         try {
             await conex.query('delete from categoria_eventos where id_categoria_eventos = ?',[id_categoria_eventos]);
-            return res.json("Categoria eliminada");
-
+            res.json("Categoria eliminada");
+            await conex.end()
         } catch (error) {
            return res.json("No se puede eliminar una categoria que este siendo utilizada ")
         }
     }
 
     public async actualizarCateventos(req:Request,res:Response){
-        const conex = await conexion();
 
-        let id_categoria_eventos = req.params.id;
+        try {
+            const conex = await conexion();
 
-        let nueva_Cateven = req.body;
+            let id_categoria_eventos = req.params.id;
 
-        await conex.query('update categoria_eventos set ? where id_categoria_eventos = ?',[nueva_Cateven,id_categoria_eventos]);
+            let nueva_Cateven = req.body;
 
-        return res.json('Categoria actualizada')
+            await conex.query('update categoria_eventos set ? where id_categoria_eventos = ?',[nueva_Cateven,id_categoria_eventos]);
+
+            res.json('Categoria actualizada')
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 
     public async obtenerCateventos(req:Request, res:Response){
-        const conex = await conexion();
 
-        let id_categoria_eventos = req.params.id;
+        try {
+            const conex = await conexion();
 
-        let unaCateven = await conex.query("select * from categoria_eventos where id_categoria_eventos = ?",[id_categoria_eventos]);
+            let id_categoria_eventos = req.params.id;
 
-        return res.json(unaCateven[0]);
+            let unaCateven = await conex.query("select * from categoria_eventos where id_categoria_eventos = ?",[id_categoria_eventos]);
+
+            res.json(unaCateven[0]);
+
+            await conex.end()
+        } catch (error) {
+            return res.json(error)
+        }
+        
     }
 }
