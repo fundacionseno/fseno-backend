@@ -5,7 +5,7 @@ const enrutadorQuienes_somos = Router();
 
 let quienesController = new QuienesController();
 
-enrutadorQuienes_somos.route('/quienes').get(validarToken,quienesController.listarQuienes);
+enrutadorQuienes_somos.route('/quienes').get(quienesController.listarQuienes);
 
 enrutadorQuienes_somos.route('/quienes-public').get(quienesController.listarQuienes);
 
